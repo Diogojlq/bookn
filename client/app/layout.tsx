@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"; // Importe o arquivo que você criou
+import { ThemeProvider } from "../components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,12 +24,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    /* 1. Adicionamos o suppressHydrationWarning aqui */
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* 2. Envolvemos os filhos com o ThemeProvider */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
