@@ -1,7 +1,10 @@
-import { NavigationMenuList } from "../../components/ui/navigation-menu.tsx";
-import { NavigationMenu } from "../../components/ui/navigation-menu";
-import { NavigationMenuLink } from "../../components/ui/navigation-menu";
-import { NavigationMenuItem } from "../../components/ui/navigation-menu";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle
+} from "../../components/ui/navigation-menu";
 
 export default function Header() {
   const headerLinks = [
@@ -11,30 +14,23 @@ export default function Header() {
   ]
 
   return (
-    <NavigationMenu className="max-w-full w-full justify-center">
-      <NavigationMenuList className="flex gap-2">
+    <nav className="w-full border-b py-4">
+      <NavigationMenu className="max-w-full w-full justify-center">
+        <NavigationMenuList className="flex flex-col md:flex-row items-center gap-4 md:gap-2">
 
-        <NavigationMenuItem>
-          <NavigationMenuLink href="/">
-            <NavigationMenuLink>
-              Home
-            </NavigationMenuLink>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
+          {headerLinks.map((link) => (
+            <NavigationMenuItem key={link.name}>
+              <NavigationMenuLink
+                href={link.href}
+                className={`${navigationMenuTriggerStyle()} w-full md:w-auto text-center`}
+              >
+                {link.name}
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          ))}
 
-        <NavigationMenuItem>
-          <NavigationMenuLink href="/about">
-            About
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <NavigationMenuLink>
-            Register
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-
-      </NavigationMenuList>
-    </NavigationMenu>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </nav>
   )
 }
