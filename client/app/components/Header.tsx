@@ -14,21 +14,19 @@ export default function Header() {
   ]
 
   return (
-    <nav className="w-full border-b py-4">
-      <NavigationMenu className="max-w-full w-full justify-center">
-        <NavigationMenuList className="flex flex-col md:flex-row items-center gap-4 md:gap-2">
-
+    <nav>
+      <NavigationMenu className="relative flex justify-between h-16 mx-auto" >
+        <NavigationMenuList className="flex items-center">
           {headerLinks.map((link) => (
-            <NavigationMenuItem key={link.name}>
+            <NavigationMenuItem key={link.name} >
               <NavigationMenuLink
                 href={link.href}
-                className={`${navigationMenuTriggerStyle()} w-full md:w-auto text-center`}
+                className={`${navigationMenuTriggerStyle()}`}
               >
                 {link.name}
               </NavigationMenuLink>
             </NavigationMenuItem>
           ))}
-
         </NavigationMenuList>
       </NavigationMenu>
     </nav>
