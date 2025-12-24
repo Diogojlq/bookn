@@ -4,6 +4,12 @@ import { NavigationMenuLink } from "../../components/ui/navigation-menu";
 import { NavigationMenuItem } from "../../components/ui/navigation-menu";
 
 export default function Header() {
+  const headerLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Register", href: "/register" }
+  ]
+
   return (
     <NavigationMenu className="max-w-full w-full justify-center">
       <NavigationMenuList className="flex gap-2">
