@@ -6,6 +6,8 @@ import {
   navigationMenuTriggerStyle
 } from "../../components/ui/navigation-menu";
 
+import Button from "../../components/ui/button"
+
 export default function Header() {
   const headerLinks = [
     { name: "Home", href: "/" },
@@ -24,6 +26,9 @@ export default function Header() {
                 className={`${navigationMenuTriggerStyle()}`}
               >
                 {link.name}
+              </NavigationMenuLink>
+              <NavigationMenuLink>
+                <Button></Button>
               </NavigationMenuLink>
             </NavigationMenuItem>
           ))}
