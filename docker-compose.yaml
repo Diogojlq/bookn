@@ -29,6 +29,7 @@ services:
         condition: service_healthy
     ports:
       - "5000:5000"
+      - "5555:5555"
 
   client:
     build: ./client
