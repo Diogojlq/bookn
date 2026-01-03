@@ -13,3 +13,13 @@ model User {
     name      String?
     password  String?
 }
+
+model Slot {
+  id          String @id @default(cuid())
+  Date        DateTime @db.Date
+  startTime   DateTime
+  endTime     DateTime
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  isAvailable Boolean @default(true)
+}
