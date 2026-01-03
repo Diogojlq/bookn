@@ -16,7 +16,7 @@ model User {
 
 model Slot {
   id          String @id @default(cuid())
-  Date        DateTime @db.Date
+  date        DateTime @db.Date
   startTime   DateTime
   endTime     DateTime
   userId      String?
