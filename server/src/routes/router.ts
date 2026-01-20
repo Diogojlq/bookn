@@ -1,7 +1,6 @@
 import { Router } from "express";
-const router = Router();
 
-const isValidEmail = (email: string) => email.includes("@");
+const router = Router();
 
 router.post("/bookings", (req, res) => {
   const { date, doctor } = req.body;
