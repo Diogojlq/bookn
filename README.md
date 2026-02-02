@@ -107,7 +107,7 @@ npm run client
 npm run server
 ```
 
-The client will be available at `http://localhost:3000` and the server at `http://localhost:3001`.
+The client will be available at `http://localhost:3000` and the server at `http://localhost:5000`.
 
 ## Database Schema
 
