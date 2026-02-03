@@ -17,18 +17,35 @@ router.post("/bookings", (req, res) => {
   res.status(201).send({ message: "Booking confirmed!" });
 });
 
-router.post("/user", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return res.status(400).send({ message: "Invalid data." });
+      return res.status(400).json({
+        error: "Name, email and password are mandatory.",
+      });
+    }
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({
+        error: "Invalid email.",
+      });
+    }
+
+    if (!isValidPassword(password)) {
+      return res.status(400).json({
+        error: "Passwords must have at least 6 characters.",
+      });
     }
 
     const newUser = await authService.register(email, name, password);
-    res.status(201).send({ message: "User created!", user: newUser });
+    res.status(201).json({
+      message: "User created successfully!",
+      user: newUser,
+    });
   } catch (error: any) {
-    res.status(400).send({ message: error.message });
+    res.status(400).json({ error: error.message });
   }
 });
 
