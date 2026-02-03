@@ -49,12 +49,30 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  if (email && password && isValidEmail(email)) {
-    res.status(200).send({ message: "Login successful!" });
-  } else {
-    res.status(401).send({ message: "Invalid credentials" });
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        error: "Email and password are mandatory.",
+      });
+    }
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({
+        error: "Invalid email.",
+      });
+    }
+
+    const { user, token } = await authService.login(email, password);
+    res.status(200).json({
+      message: "Login successfull!",
+      user,
+      token,
+    });
+  } catch (error: any) {
+    res.status(401).json({ error: error.message });
   }
 });
 
