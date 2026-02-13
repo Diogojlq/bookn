@@ -4,8 +4,19 @@ import { authService } from "../services/authService";
 const router = Router();
 
 const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+  const trimmedEmail = email.trim();
+  const parts = trimmedEmail.split("@");
+
+  if (parts.length !== 2) return false;
+
+  const [localPart, domain] = parts;
+
+  if (!localPart || localPart.length === 0) return false;
+  if (!domain || domain.length === 0) return false;
+  if (!domain.includes(".")) return false;
+  if (trimmedEmail.includes(" ")) return false;
+
+  return true;
 };
 
 const isValidPassword = (password: string): boolean => {
