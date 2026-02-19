@@ -42,7 +42,6 @@ export function LoginCard() {
       }
 
       const data = await response.json();
-      // Aqui você pode salvar o token ou redirecionar o usuário
       console.log("Login successful:", data);
     } catch (err) {
       setError("Connection error. Please try again.");
