@@ -3,7 +3,7 @@ import { LoginCard } from "./LoginCard";
 export default function Hero() {
   return (
     <section className="min-h-screen px-6 py-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center pl-8">
 
         <div className="flex flex-col gap-6 text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight text-white">
