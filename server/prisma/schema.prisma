@@ -34,3 +34,12 @@ model Organization {
   eventTypes  EventType[]
   slots       Slot[]
 }
+
+model EventType {
+  id             String       @id @default(cuid())
+  name           String       // ex: "Reunião de 30 min"
+  durationMin    Int
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  slots          Slot[]       // slots gerados a partir do template
+}
