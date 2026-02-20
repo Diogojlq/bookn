@@ -24,3 +24,13 @@ model Slot {
     user        User?    @relation(fields: [userId], references: [id])
     isAvailable Boolean  @default(true)
 }
+
+model Organization {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  ownerId     String
+  owner       User        @relation(fields: [ownerId], references: [id])
+  eventTypes  EventType[]
+  slots       Slot[]
+}
