@@ -45,6 +45,11 @@ export function LoginCard() {
 
       const data = await response.json();
       console.log("Login successful:", data);
+
+      if (data.token) {
+        localStorage.setItem("authToken", data.token);
+      }
+
       router.push("/schedule");
     } catch (err) {
       setError("Connection error. Please try again.");
