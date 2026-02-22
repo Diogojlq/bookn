@@ -1,69 +1,87 @@
 import { prisma } from "../../db/prisma";
 
+type CreateSlotInput = {
+  userId: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+};
+
 export class AppointmentService {
-  async create(userId: string, date: Date, startTime: Date, endTime: Date) {
+  async create({ userId, date, startTime, endTime }: CreateSlotInput) {
+    const slotDate = new Date(date);
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+
+    if (start >= end) {
+      throw new Error("Start time must be before end time");
+    }
+
     const slot = await prisma.slot.create({
       data: {
-        date,
-        startTime,
-        endTime,
+        date: slotDate,
+        startTime: start,
+        endTime: end,
         userId,
         isAvailable: false,
       },
     });
+
     return slot;
   }
 
   async getByUserId(userId: string) {
-    const appointments = await prisma.slot.findMany({
+    return prisma.slot.findMany({
       where: { userId },
       orderBy: { startTime: "asc" },
     });
-    return appointments;
   }
 
   async getById(id: string) {
-    const appointment = await prisma.slot.findUnique({
+    return prisma.slot.findUnique({
       where: { id },
     });
-    return appointment;
   }
 
   async update(
     id: string,
-    data: { startTime?: Date; endTime?: Date; isAvailable?: boolean }
+    data: {
+      startTime?: string;
+      endTime?: string;
+      isAvailable?: boolean;
+    }
   ) {
-    const updated = await prisma.slot.update({
+    return prisma.slot.update({
       where: { id },
-      data,
+      data: {
+        ...(data.startTime && { startTime: new Date(data.startTime) }),
+        ...(data.endTime && { endTime: new Date(data.endTime) }),
+        isAvailable: data.isAvailable,
+      },
     });
-    return updated;
   }
 
   async cancel(id: string) {
-    const cancelled = await prisma.slot.delete({
+    return prisma.slot.delete({
       where: { id },
     });
-    return cancelled;
   }
 
-  async getAvailable(date: Date) {
-    const appointments = await prisma.slot.findMany({
+  async getAvailable(date: string) {
+    return prisma.slot.findMany({
       where: {
-        date,
+        date: new Date(date),
         isAvailable: true,
       },
       orderBy: { startTime: "asc" },
     });
-    return appointments;
   }
 
   async markAsUnavailable(id: string) {
-    const updated = await prisma.slot.update({
+    return prisma.slot.update({
       where: { id },
       data: { isAvailable: false },
     });
-    return updated;
   }
 }
 
