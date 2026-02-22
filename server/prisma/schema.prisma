@@ -50,3 +50,33 @@ model EventType {
   organization   Organization @relation(fields: [organizationId], references: [id])
   slots          Slot[]       // slots gerados a partir do template
 }
+
+model Appointment {
+  id String @id @default(cuid())
+
+  slotId String
+  slot   Slot @relation(fields: [slotId], references: [id], onDelete: Cascade)
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  eventTypeId String?
+  eventType   EventType? @relation(fields: [eventTypeId], references: [id])
+
+  professionalId String?
+  professional   User? @relation(fields: [professionalId], references: [id])
+
+  clientName  String?
+  clientEmail String?
+  clientPhone String?
+
+  status AppointmentStatus
+
+  notes String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([organizationId])
+  @@index([slotId])
+}
