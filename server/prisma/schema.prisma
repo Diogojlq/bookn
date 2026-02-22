@@ -17,19 +17,19 @@ model User {
 }
 
 model Slot {
-    id          String   @id @default(cuid())
-    date        DateTime @db.Date
-    startTime   DateTime
-    endTime     DateTime
-    userId      String?
-    user        User?    @relation(fields: [userId], references: [id])
-    isAvailable Boolean  @default(true)
+  id        String   @id @default(cuid())
 
-    organizationId String
-    organization   Organization @relation(fields: [organizationId], references: [id])
+  date      DateTime @db.Date
+  startTime DateTime
+  endTime   DateTime
 
-    eventTypeId    String?
-    eventType      EventType?   @relation(fields: [eventTypeId], references: [id])
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  appointments Appointment[]
+
+  @@unique([organizationId, date, startTime, endTime])
+  @@index([organizationId, date])
 }
 
 model Organization {
