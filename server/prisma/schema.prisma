@@ -39,6 +39,7 @@ model Organization {
   owner       User        @relation(fields: [ownerId], references: [id])
   eventTypes  EventType[]
   slots       Slot[]
+  memberships Membership[]
 }
 
 model EventType {
