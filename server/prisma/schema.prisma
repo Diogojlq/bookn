@@ -35,8 +35,6 @@ model Organization {
   id          String      @id @default(cuid())
   name        String
   slug        String      @unique
-  ownerId     String
-  owner       User        @relation(fields: [ownerId], references: [id])
   eventTypes  EventType[]
   slots       Slot[]
   memberships Membership[]
