@@ -7,12 +7,26 @@ generator client {
     provider = "prisma-client-js"
 }
 
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum OrganizationRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
 model User {
     id        String @id @default(cuid())
     email     String @unique
     name      String?
     password  String?
     memberships Membership[]
+    appointments Appointment[]
 }
 
 model Slot {
@@ -32,21 +46,22 @@ model Slot {
 }
 
 model Organization {
-  id          String      @id @default(cuid())
-  name        String
-  slug        String      @unique
-  eventTypes  EventType[]
-  slots       Slot[]
-  memberships Membership[]
+   id          String      @id @default(cuid())
+   name        String
+   slug        String      @unique
+   eventTypes  EventType[]
+   slots       Slot[]
+   memberships Membership[]
+   appointments Appointment[]
 }
 
 model EventType {
-  id             String       @id @default(cuid())
-  name           String       // ex: "Reunião de 30 min"
-  durationMin    Int
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id])
-  slots          Slot[]       // slots gerados a partir do template
+   id             String       @id @default(cuid())
+   name           String         
+   durationMin    Int
+   organizationId String
+   organization   Organization @relation(fields: [organizationId], references: [id])
+   appointments   Appointment[]
 }
 
 model Appointment {
