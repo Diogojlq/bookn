@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { authService } from "../services/authService";
+import appointmentRoutes from './appointment.routes';
 
 const router = Router();
 
@@ -86,5 +87,7 @@ router.post("/login", async (req, res) => {
     res.status(401).json({ error: error.message });
   }
 });
+
+router.use("/appointments", appointmentRoutes);
 
 export default router;
