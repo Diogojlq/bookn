@@ -1,7 +1,8 @@
+import 'dotenv/config'
 import { app } from './server';
 import { prisma } from '../db/prisma';
 
-const PORT = 5000;
+const PORT = 7000;
 
 async function startServer() {
   try {
